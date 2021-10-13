@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.name }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ article.name }}</h1>
+    <p>{{ article.category.name }}</p>
+    <br>
+    <img src="{{ asset('uploads/images/')~ article.image }}" alt="Article Image=" style="max-height: 500px;max-width: 500px">
+    <p>{{ article.summary }}</p>
+    <p>{{ article.description }}</p>
+    <hr>
+    <a href="/">Go Back</a>
+
+{% endblock %}

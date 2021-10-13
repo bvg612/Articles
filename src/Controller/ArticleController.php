@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -26,11 +27,13 @@ class ArticleController extends AbstractController
      */
     public function index(): Response
     {
-//        $articles = $this->getDoctrine()->getRepository(Article::class)->getListWithCategory();
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
 
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
+            'categories' => $categories,
         ]);
     }
 
@@ -71,11 +74,13 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
             $file = $form->get('image')->getData();
-            $fileName = md5(uniqid('', true)).'.'.$file->guessExtension();
-            $file->move(
-              $this->getParameter('image_directory'),$fileName
-            );
-            $article->setImage($fileName);
+            if(isset($file)) {
+                $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+                $file->move(
+                    $this->getParameter('image_directory'), $fileName
+                );
+                $article->setImage($fileName);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
@@ -128,6 +133,8 @@ class ArticleController extends AbstractController
 
         ]);
     }
+
+
 
 
 }

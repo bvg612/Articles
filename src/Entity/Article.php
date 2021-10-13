@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -29,6 +30,12 @@ class Article
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
      */
     private $category;
+
+//    /**
+//     * @ORM\Column(name="creationDdate", type="datetime", options={"default" = "CURRENT_TIMESTAMP"})
+//     */
+//    protected $creationDate;
+
 
     /**
      * @var string
@@ -108,6 +115,30 @@ class Article
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?string
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(string $creationDate): self
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }

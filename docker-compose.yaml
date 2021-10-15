@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:13-alpine
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: security_app
+    ports: [5432]
+
+  mailer:
+    image: schickling/mailCatcher
+    ports: [1025, 1080]
+
+# Command lines
+# docker-compose down
+# docker-compose up -d
+# symfony open:local:webmail

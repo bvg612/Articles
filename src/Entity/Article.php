@@ -119,27 +119,5 @@ class Article
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getCreationDate(): ?string
-    {
-        return $this->creationDate;
-    }
-
-    public function setCreationDate(string $creationDate): self
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
-    }
 }
